@@ -430,6 +430,7 @@ class TestStringifiedDAGs:
             )
 
     @pytest.mark.db_test
+    @pytest.mark.filterwarnings("ignore::airflow.exceptions.RemovedInAirflow3Warning")
     def test_serialization(self):
         """Serialization and deserialization should work for every DAG and Operator."""
         dags = collect_dags()
@@ -539,6 +540,7 @@ class TestStringifiedDAGs:
         return actual, expected
 
     @pytest.mark.db_test
+    @pytest.mark.filterwarnings("ignore::airflow.exceptions.RemovedInAirflow3Warning")
     def test_deserialization_across_process(self):
         """A serialized DAG can be deserialized in another process."""
 
@@ -1596,6 +1598,7 @@ class TestStringifiedDAGs:
             "airflow.ti_deps.deps.trigger_rule_dep.TriggerRuleDep",
         ]
 
+    @pytest.mark.filterwarnings("ignore::airflow.exceptions.RemovedInAirflow3Warning")
     def test_error_on_unregistered_ti_dep_serialization(self):
         # trigger rule not registered through the plugin system will not be serialized
         class DummyTriggerRule(BaseTIDep):
@@ -1634,6 +1637,7 @@ class TestStringifiedDAGs:
             SerializedBaseOperator.deserialize_operator(serialize_op)
 
     @pytest.mark.db_test
+    @pytest.mark.filterwarnings("ignore::airflow.exceptions.RemovedInAirflow3Warning")
     def test_serialize_and_deserialize_custom_ti_deps(self):
         from test_plugin import CustomTestTriggerRule
 
